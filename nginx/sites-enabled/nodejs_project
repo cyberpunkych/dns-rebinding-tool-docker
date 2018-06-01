@@ -1,0 +1,24 @@
+server {
+
+  listen 80;
+  server_name dnsrebindtool.${DOMAIN};
+  charset utf-8;
+
+  location / {
+    proxy_pass http://web:5000;
+  }
+
+}
+
+server {
+  listen 80;
+  server_name *.rebind.${DOMAIN};
+
+  location / {
+    return 404;
+  }
+
+  location /attack {
+    proxy_pass http://web:5000/attack;
+  }
+}

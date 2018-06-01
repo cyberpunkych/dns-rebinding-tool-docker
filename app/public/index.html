@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <noscript>tool needs javascript to work</noscript>
+    <h3>DNS Rebinding Attack Tool</h3>
+
+    $REBIND_DOMAIN = <input spellcheck='false' type='text' id='rebinddomain' style='width:350px'></input>
+    <br>
+    <br>
+    <textarea spellcheck='false' id='script' style='width:600px;height: 300px;'></textarea>
+    <br>
+    <br>
+    <button onclick='setupIframe()'>Attack</button> (script will be executed on the rebind domain in the iframe below)
+    <br>
+    <br>
+    <iframe id='iframe'></iframe>
+  </body>
+
+  <script src='functions.js'></script>
+</html>

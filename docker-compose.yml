@@ -1,0 +1,27 @@
+web:
+  build: ./app
+  working_dir: /src/app
+  volumes:
+    - "./app:/src/app"
+  ports:
+    - "0.0.0.0:53:53/tcp"
+    - "0.0.0.0:53:53/udp"
+  command: node server.js # You can also use nodemon here
+  environment:
+    - DOMAIN=domain.com
+    - DOMAIN_IP=123.123.123.123
+
+nginx:
+  restart: always
+  image: nginx:alpine
+  ports:
+    - "0.0.0.0:80:80"
+  volumes:
+    - "./nginx/sites-enabled:/etc/nginx/sites-available/"
+  volumes_from:
+    - web
+  links:
+    - web:web
+  command: /bin/sh -c "envsubst < /etc/nginx/sites-available/nodejs_project > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;' || cat /etc/nginx/conf.d/default.conf"
+  environment:
+    - DOMAIN=domain.com
